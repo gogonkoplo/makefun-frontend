@@ -56,6 +56,12 @@ async function route() {
 // Fresher data for the page on screen: repaint the same route in place.
 onDataChanged(() => { route(); });
 
+// An API image that fails to load (a dead avatar URL, a blocked share card)
+// hides itself instead of leaving a broken-image icon in the layout.
+document.addEventListener('error', (e) => {
+  if (e.target && e.target.tagName === 'IMG') e.target.style.display = 'none';
+}, true);
+
 window.addEventListener('hashchange', route);
 
 // One shared ticker drives every countdown on the page.

@@ -2,7 +2,7 @@
 // Filter state lives at module level so a background revalidation repaint keeps
 // the visitor's search, chip and sort exactly as they left them.
 
-import { esc, money, count, countdown, isClosed, skeletonCards } from '../format.js';
+import { esc, money, count, countdown, dateOf, isClosed, skeletonCards } from '../format.js';
 
 const state = { q: '', cat: 'All', sort: 'ending' };
 
@@ -23,7 +23,7 @@ function cardHtml(b) {
     + '<div class="card-pot"><span class="pot">' + esc(money(b.potUsd)) + '</span><span class="pot-label">live pot</span></div>'
     + '<div class="card-meta">' + fee
     + '<span class="meta-item">' + esc(count(b.submissionCount)) + ' entries</span>'
-    + '<span class="meta-item cd-wrap">' + (closed ? 'Ended ' : '') + countdown(b.deadline) + '</span>'
+    + '<span class="meta-item cd-wrap">' + (closed ? 'Ended ' + esc(dateOf(b.deadline)) : countdown(b.deadline)) + '</span>'
     + '</div></a>';
 }
 
